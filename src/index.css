@@ -6,6 +6,27 @@
 }
 
 html, body, #root {
-  background-color: antiquewhite;
+  background-color: #CFD5D5;
   height: 100%;
+}
+
+.mainContainer {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.min-height-75 {
+  min-height: 75%;
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.column {
+  flex-direction: column;
+  justify-content: flex-start;
 }
