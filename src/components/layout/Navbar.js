@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <Container>
         <Link to="/">
-          <img src={logo} alt="Confin" />
+          <img className={styles.item} src={logo} alt="Confin" />
         </Link>
         <ul className={styles.list}>
           <li className={styles.item}>
