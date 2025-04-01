@@ -1,0 +1,17 @@
+.form_control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form_control label {
+    margin-bottom: .6em;
+    font-weight: bold;
+}
+
+.form_control select {
+    text-indent: .5em;
+    height:30px!important;
+    border-radius: 0;
+    border: none;
+}

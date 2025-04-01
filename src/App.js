@@ -6,6 +6,7 @@ import Transaction from "./components/pages/Transaction";
 import Configuration from "./components/pages/Configuration";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import NewIncome from "./components/pages/NewIncome";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/" Component={Home} />
         <Route path="/dashboard" Component={Dashboard} />
         <Route path="/transactions" Component={Transaction} />
+        <Route path="/newincome" Component={NewIncome} />
         <Route path="/categories" Component={Category} />
         <Route path="/configurations" Component={Configuration} />
       </Routes>

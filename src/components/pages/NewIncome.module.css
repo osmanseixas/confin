@@ -1,0 +1,13 @@
+.newincome_container {
+    width: 450px;
+    margin: 0 auto;
+    padding: 3em;
+}
+
+.newincome_container h1 {
+    margin-bottom: 0.5em;
+}
+
+.newincome_container p {
+    color: #6b6b6b;
+}

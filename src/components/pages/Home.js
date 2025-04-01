@@ -11,7 +11,7 @@ export default function Home() {
         <p>Tenha uma vida financeira previsível e sob controle.</p>
         <div className={styles.container}>
           <LinkButton to="/dashboard" text="Ver saldo das contas" />
-          <LinkButton to="/transactions" text="Criar Receita" />
+          <LinkButton to="/newincome" text="Criar Receita" />
           <LinkButton to="/transactions" text="Criar Despesa" />
         </div>
       </section>
