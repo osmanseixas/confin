@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formatCurrency } from "../../utils/format";
+import { formatCurrency } from "../../utils/Format";
 
 const CardContainer = styled.div`
   background: ${(props) => props.bg || "#fff"};

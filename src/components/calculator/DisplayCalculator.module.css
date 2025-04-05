@@ -1,0 +1,15 @@
+.display_calculator {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 3rem;
+  text-align: right;
+  border: none;
+  background-color: hsl(0, 0%, 20%);
+  color: white;
+
+  font-family: "Tektur", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}

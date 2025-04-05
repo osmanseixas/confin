@@ -1,0 +1,23 @@
+.button_calc {
+  width: 65px;
+  height: 65px;
+  border-radius: 50px;
+  border: none;
+  background-color: hsl(0, 0%, 30%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button_calc:hover {
+    background-color: hsl(0,0%,40%);
+}
+
+.button_calc:active {
+    background-color: hsl(0,0%,50%);
+}
+
+.operator_calc {
+    background-color: hsl(39,100%,50%);
+}

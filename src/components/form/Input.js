@@ -6,6 +6,7 @@ export default function Input({
   name,
   placeholder,
   handleOnChange,
+  handleOnFocus,
   value,
 }) {
   return (
@@ -17,6 +18,7 @@ export default function Input({
         name={name}
         placeholder={placeholder}
         onChange={handleOnChange}
+        onFocus={handleOnFocus}
         value={value}
       />
     </div>

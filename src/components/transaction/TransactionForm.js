@@ -3,9 +3,11 @@ import Input from "../form/Input";
 import Select from "../form/Select";
 import SubmitButton from "../form/SubmitButton";
 import styles from "./TransactionForm.module.css";
+import Calculator from "../calculator/Calculator";
 
 export default function TransactionForm({ type, text }) {
   const [categories, setCategories] = useState([]);
+  const [showCalculator, setShowCalculator] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3001/categories", {
@@ -19,14 +21,21 @@ export default function TransactionForm({ type, text }) {
         setCategories(data);
       })
       .catch((err) => console.log(err));
-  }, [])
+  }, []);
 
   return (
     <form className={styles.form}>
       <Input text="Identificação" type="text" name="identificacao" />
-      <Input text="Valor" type="number" name="valor" />
+      <Input
+        text="Valor"
+        type="number"
+        name="valor"
+        handleOnFocus={() => setShowCalculator(true)}
+      />
       <Select text="Categoria" name="categoria" options={categories} />
       <SubmitButton text={text} />
+
+      {showCalculator && <Calculator onClose={() => setShowCalculator(false)} />}
     </form>
   );
 }
