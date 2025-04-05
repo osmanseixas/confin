@@ -1,5 +1,5 @@
 import styles from "./ButtonCalculator.module.css";
-import { FaDivide } from "react-icons/fa6";
+import { FaPlus, FaMinus, FaX, FaDivide, FaEquals } from "react-icons/fa6";
 
 
 export default function ButtonCalculator({ input, inputFunction }) {
@@ -8,10 +8,16 @@ export default function ButtonCalculator({ input, inputFunction }) {
     inputClass += " "+styles['operator_calc'];
   }
   let label = input;
-  if(input === '*') {
-    label = 'x';
+  if(input === '+') {
+    label = <FaPlus />;
+  } else if(input === '-') {
+    label = <FaMinus />;
+  } else if(input === '*') {
+    label = <FaX />;
   } else if(input === '/') {
     label = <FaDivide />;
+  } else if(input === '=') {
+    label = <FaEquals />;
   }
   return <button className={inputClass} onClick={(e) => inputFunction({input})}>{label}</button>;
 }
