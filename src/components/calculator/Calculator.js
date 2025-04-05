@@ -10,7 +10,7 @@ export default function Calculator({ onClose }) {
   const appendToDisplay = useCallback(
     (input) => {
       if (isValidInput(displayContent, input)) {
-        setDisplayContent((prev) => prev + input);
+        setDisplayContent((prev) => limparZerosDeCadaParte(prev + input));
       }
     },
     [displayContent]
@@ -82,6 +82,16 @@ export default function Calculator({ onClose }) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [appendToDisplay, calculate, handleBackspace]);
+
+  function limparZerosDeCadaParte(expr) {
+    return expr.replace(/\b0*(\d+(\.\d+)?)/g, (_, num) => {
+      // Evita transformar "0" em string vazia
+      if (num.startsWith('0') && !num.startsWith('0.')) {
+        return String(Number(num));
+      }
+      return num;
+    });
+  }
 
   function isValidInput(currentDisplay, newInput) {
     const operators = ["+", "-", "*", "/"];
