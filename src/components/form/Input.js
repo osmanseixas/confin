@@ -8,6 +8,7 @@ export default function Input({
   handleOnChange,
   handleOnFocus,
   value,
+  readonly = false
 }) {
   return (
     <div className={styles.form_control}>
@@ -20,6 +21,7 @@ export default function Input({
         onChange={handleOnChange}
         onFocus={handleOnFocus}
         value={value}
+        readOnly={readonly}
       />
     </div>
   );

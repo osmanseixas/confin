@@ -24,18 +24,22 @@ export default function TransactionForm({ type, text }) {
   }, []);
 
   return (
-    <form className={styles.form}>
-      <Input text="Identificação" type="text" name="identificacao" />
-      <Input
-        text="Valor"
-        type="number"
-        name="valor"
-        handleOnFocus={() => setShowCalculator(true)}
-      />
-      <Select text="Categoria" name="categoria" options={categories} />
-      <SubmitButton text={text} />
-
-      {showCalculator && <Calculator onClose={() => setShowCalculator(false)} />}
-    </form>
+    <>
+      <form className={styles.form}>
+        <Input text="Identificação" type="text" name="identificacao" />
+        <Input
+          text="Valor"
+          type="text"
+          name="valor"
+          handleOnFocus={() => setShowCalculator(true)}
+          readonly={true}
+        />
+        <Select text="Categoria" name="categoria" options={categories} />
+        <SubmitButton text={text} />
+      </form>
+      {showCalculator && (
+        <Calculator onClose={() => setShowCalculator(false)} />
+      )}
+    </>
   );
 }
