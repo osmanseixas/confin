@@ -1,4 +1,4 @@
-import TransactionForm from "../transaction/TransactionForm";
+import NewTransaction from "./transaction/newTransaction";
 import styles from "./NewIncome.module.css";
 
 export default function NewIncome() {
@@ -6,7 +6,7 @@ export default function NewIncome() {
         <div className={styles.newincome_container}>
             <h1>Receita</h1>
             <p>Crie uma nova entrada de receita</p>
-            <TransactionForm type="receita" text="Cadastrar"/>
+            <NewTransaction type="receita" text="Cadastrar"/>
         </div>
     );
 }

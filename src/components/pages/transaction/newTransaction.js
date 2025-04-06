@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Input from "../form/Input";
-import Select from "../form/Select";
-import SubmitButton from "../form/SubmitButton";
-import styles from "./TransactionForm.module.css";
-import Calculator from "../calculator/Calculator";
+import Input from "../../form/Input";
+import Select from "../../form/Select";
+import SubmitButton from "../../form/SubmitButton";
+import styles from "./newTransaction.module.css";
+import Calculator from "../../calculator/Calculator";
 
-export default function TransactionForm({ type, text }) {
+export default function NewTransaction({ type, text }) {
   const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
 
