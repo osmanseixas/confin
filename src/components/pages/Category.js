@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCategories } from "../../services/categoryService";
+import { getCategorias } from "../../services/CategoryService";
 import Select from "react-select";
 import { MdLocalHospital, MdFastfood } from "react-icons/md";
 import {
@@ -25,6 +25,7 @@ import "./Category.module.css";
 export default function Category() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState("");
 
   const [newItem, setNewItem] = useState("");
   const [selectedIcone, setSelectedIcone] = useState("");
@@ -53,10 +54,18 @@ export default function Category() {
   };
 
   useEffect(() => {
-    getCategories().then((data) => {
-      setItems(data);
+    async function carregarDados() {
+      try {
+        const categories = await getCategorias();
+        setItems(categories);
+      } catch (err) {
+        console.error("Erro ao carregar dados:", err);
+        setErro(err.message);
+      }
       setLoading(false);
-    });
+    }
+
+    carregarDados();
   }, []);
 
   // Opções formatadas para o React Select
@@ -117,87 +126,93 @@ export default function Category() {
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        <>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Digite uma nova categoria..."
-              value={newItem}
-              onChange={(e) => setNewItem(e.target.value)}
-            />
-            <Select
-              options={iconOptions}
-              value={iconOptions.find(
-                (option) => option.value === selectedIcone
-              )}
-              onChange={(option) => setSelectedIcone(option.value)}
-              className="icon-select"
-            />
-            <input
-              type="color"
-              value={newCor}
-              onChange={(e) => setNewCor(e.target.value)}
-            />
-            <button onClick={handleAddItem}>Adicionar</button>
-          </div>
-          <ul className="item-list">
-            {items.map((item) => (
-              <li key={item.id} className="item">
-                {editingItem && editingItem.id === item.id ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editedDescricao}
-                      onChange={(e) => setEditedDescricao(e.target.value)}
-                    />
-                    <Select
-                      options={iconOptions}
-                      value={iconOptions.find(
-                        (option) => option.value === editedIcone
-                      )}
-                      onChange={(option) => setEditedIcone(option.value)}
-                      className="icon-select"
-                    />
-                    <input
-                      type="color"
-                      value={editedCor}
-                      onChange={(e) => setEditedCor(e.target.value)}
-                    />
-                    <button onClick={handleSaveEdit} className="save">
-                      <FaSave />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span
-                      style={{
-                        backgroundColor: item.cor,
-                        padding: "5px",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      {icons[item.icone]} {item.descricao}
-                    </span>
-                    <div className="buttons">
-                      <button
-                        onClick={() => handleEditItem(item)}
-                        className="edit"
-                      >
-                        <FaEdit />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteItem(item.id)}
-                        className="delete"
-                      >
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        </>
+        <div className="max-w-6xl mx-auto mt-10 px-4">
+          {erro ? (
+            <p className="text-red-500">{erro}</p>
+          ) : (
+            <>
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Digite uma nova categoria..."
+                  value={newItem}
+                  onChange={(e) => setNewItem(e.target.value)}
+                />
+                <Select
+                  options={iconOptions}
+                  value={iconOptions.find(
+                    (option) => option.value === selectedIcone
+                  )}
+                  onChange={(option) => setSelectedIcone(option.value)}
+                  className="icon-select"
+                />
+                <input
+                  type="color"
+                  value={newCor}
+                  onChange={(e) => setNewCor(e.target.value)}
+                />
+                <button onClick={handleAddItem}>Adicionar</button>
+              </div>
+              <ul className="item-list">
+                {items.map((item) => (
+                  <li key={item.id} className="item">
+                    {editingItem && editingItem.id === item.id ? (
+                      <>
+                        <input
+                          type="text"
+                          value={editedDescricao}
+                          onChange={(e) => setEditedDescricao(e.target.value)}
+                        />
+                        <Select
+                          options={iconOptions}
+                          value={iconOptions.find(
+                            (option) => option.value === editedIcone
+                          )}
+                          onChange={(option) => setEditedIcone(option.value)}
+                          className="icon-select"
+                        />
+                        <input
+                          type="color"
+                          value={editedCor}
+                          onChange={(e) => setEditedCor(e.target.value)}
+                        />
+                        <button onClick={handleSaveEdit} className="save">
+                          <FaSave />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <span
+                          style={{
+                            backgroundColor: item.cor,
+                            padding: "5px",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          {icons[item.icone]} {item.descricao}
+                        </span>
+                        <div className="buttons">
+                          <button
+                            onClick={() => handleEditItem(item)}
+                            className="edit"
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteItem(item.id)}
+                            className="delete"
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       )}
     </div>
   );

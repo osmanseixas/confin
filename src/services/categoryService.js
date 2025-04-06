@@ -1,9 +1,9 @@
-import { categoriesMock } from "../data/mockData";
+const API_URL = "http://localhost:3001/categories";
 
-export const getCategories = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(categoriesMock); // Simula um tempo de resposta da API
-    }, 1000);
-  });
+export const getCategorias = async () => {
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw new Error("Erro ao buscar categorias");
+  }
+  return response.json();
 };
