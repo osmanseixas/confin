@@ -1,22 +1,27 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: var(--main-header-bg);
   padding: 1em;
 }
 
 .active {
-  border-bottom: 2px solid #5db5c2;
+  border-bottom: 2px solid var(--main-header-text);
+  color: var(--main-header-text);
   font-weight: 600;
 }
 
 .logo {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  color: white;
-  font-size: 2.5rem;
+  color: var(--contrast-text);
+  font-size: 40px;
   font-weight: 500;
+}
+
+.logo svg {
+  color: var(--contrast-text);
+  height: 50px;
 }
 
 .list {
@@ -30,10 +35,10 @@
 }
 
 .item a {
-  color: white;
+  color: var(--contrast-text);
   text-decoration: none;
 }
 
 .item a:hover {
-  color: #5db5c2;
+  color: var(--main-header-text);
 }

@@ -12,13 +12,13 @@
   border-collapse: collapse;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: var(--bg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .thead {
-    background-color: var(--header-bg);
-    color: var(--text);
+  background-color: var(--header-bg);
+  color: var(--text);
   text-transform: uppercase;
 }
 
@@ -31,11 +31,11 @@
 }
 
 .thead th:hover {
-  color: #3b82f6;
+  color: var(--text-hover);
 }
 
 .filterRow td {
-  background-color: #fff;
+  background-color: var(--filter-bg);
   padding: 0.75rem;
 }
 
@@ -52,19 +52,20 @@
 }
 
 .row:hover {
-    background-color: var(--hover);
+  background-color: var(--row-hover);
 }
 
 .td {
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
-  color: #374151;
+  color: var(--text);
 }
 
 .valor {
   font-weight: 500;
   text-align: right;
 }
+
 .pagination {
   margin-top: 2rem;
   display: flex;
@@ -75,7 +76,7 @@
 .paginationButton {
   padding: 0.5rem 1rem;
   background-color: var(--pagination-bg);
-  color: white;
+  color: var(--text);
   border: none;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -84,7 +85,7 @@
 }
 
 .paginationButton:hover {
-    background-color: var(--pagination-hover);
+  background-color: var(--pagination-hover);
 }
 
 .paginationButton:disabled {

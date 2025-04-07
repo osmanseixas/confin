@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Container from "./Container";
-import logo from "../../img/logo.ico";
+import { TbPigMoney } from "react-icons/tb";
 
 export default function Navbar() {
   return (
@@ -9,7 +9,7 @@ export default function Navbar() {
       <Container>
         <div className={styles.logo}>
           <NavLink to="/">
-            <img className={styles.item} src={logo} alt="Confin" />
+          <TbPigMoney />
           </NavLink>
           <span className={styles.titulo}>CONFIN</span>
         </div>
