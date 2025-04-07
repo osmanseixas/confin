@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Container from "./Container";
 import logo from "../../img/logo.ico";
@@ -7,21 +7,52 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <Container>
-        <Link to="/">
-          <img className={styles.item} src={logo} alt="Confin" />
-        </Link>
+        <div className={styles.logo}>
+          <NavLink to="/">
+            <img className={styles.item} src={logo} alt="Confin" />
+          </NavLink>
+          <span className={styles.titulo}>CONFIN</span>
+        </div>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <Link to="/dashboard">Dashboard</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? `${styles.active}` : "")}
+            >
+              Início
+            </NavLink>
           </li>
           <li className={styles.item}>
-            <Link to="/transactions">Transações</Link>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) => (isActive ? `${styles.active}` : "")}
+            >
+              Dashboard
+            </NavLink>
           </li>
           <li className={styles.item}>
-            <Link to="/categories">Categorias</Link>
+            <NavLink
+              to="/transactions"
+              className={({ isActive }) => (isActive ? `${styles.active}` : "")}
+            >
+              Transações
+            </NavLink>
           </li>
           <li className={styles.item}>
-            <Link to="/configurations">Configurações</Link>
+            <NavLink
+              to="/categories"
+              className={({ isActive }) => (isActive ? `${styles.active}` : "")}
+            >
+              Categorias
+            </NavLink>
+          </li>
+          <li className={styles.item}>
+            <NavLink
+              to="/configurations"
+              className={({ isActive }) => (isActive ? `${styles.active}` : "")}
+            >
+              Configurações
+            </NavLink>
           </li>
         </ul>
       </Container>
