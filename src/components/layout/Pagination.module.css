@@ -66,3 +66,26 @@
     font-weight: bold;
   }
   
+  .statusText {
+    text-align: center;
+    font-size: 0.875rem; /* text-sm */
+    margin-bottom: 0.5rem;
+    color: var(--text-status);
+  }
+  
+  .statusText strong {
+    font-weight: 600;
+    color: var(--text-status-strong);
+  }
+  
+  /* Cores adaptadas ao tema */
+  :root {
+    --text-status: #0369a1;          /* Azul suave */
+    --text-status-strong: #0c4a6e;   /* Azul mais intenso */
+  }
+  
+  body[data-theme="dark"] {
+    --text-status: #bfdbfe;
+    --text-status-strong: #93c5fd;
+  }
+  

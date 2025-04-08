@@ -126,6 +126,28 @@ export default function ListTransaction() {
                   </td>
                 </tr>
               ))}
+
+              {/* Preenche com linhas em branco para manter o espaço fixo */}
+              {Array.from({
+                length: itensPorPagina - dadosPaginados.length,
+              }).map((_, i) => (
+                <tr key={`blank-${i}`} className={styles.rowBlank}>
+                  <td className={styles.td}>&nbsp;</td>
+                  <td className={styles.td}>&nbsp;</td>
+                  <td className={styles.td}>&nbsp;</td>
+                  <td className={styles.td}>&nbsp;</td>
+                  <td className={`${styles.td} ${styles.valor}`}>&nbsp;</td>
+                </tr>
+              ))}
+
+              {dadosPaginados.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="p-4 text-center text-gray-500">
+                    Nenhum resultado encontrado.
+                  </td>
+                </tr>
+              )}
+
               {dadosPaginados.length === 0 && (
                 <tr>
                   <td colSpan={5} className="p-4 text-center text-gray-500">
@@ -139,6 +161,8 @@ export default function ListTransaction() {
           <Pagination
             paginaAtual={paginaAtual}
             totalPaginas={totalPaginas}
+            totalItens={dadosFiltrados.length}
+            itensPorPagina={itensPorPagina}
             onPaginaChange={setPaginaAtual}
           />
         </div>

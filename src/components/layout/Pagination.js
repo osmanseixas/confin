@@ -6,6 +6,8 @@ export default function Pagination({
   paginaAtual,
   totalPaginas,
   onPaginaChange,
+  totalItens,
+  itensPorPagina,
   maxPaginasVisiveis: propMaxPaginasVisiveis,
 }) {
   const windowWidth = useWindowWidth();
@@ -13,6 +15,9 @@ export default function Pagination({
   const maxPaginasVisiveis =
     propMaxPaginasVisiveis ??
     (windowWidth >= 1024 ? 10 : windowWidth >= 640 ? 7 : 4);
+
+  const primeiroItem = (paginaAtual - 1) * itensPorPagina + 1;
+  const ultimoItem = Math.min(paginaAtual * itensPorPagina, totalItens);
 
   const gerarPaginas = () => {
     const paginas = [];
@@ -32,50 +37,56 @@ export default function Pagination({
     return paginas;
   };
   return (
-    <div className={styles.container}>
-      <button
-        onClick={() => onPaginaChange(1)}
-        disabled={paginaAtual === 1}
-        className={styles.button}
-      >
-        ⏮️
-      </button>
-
-      <button
-        onClick={() => onPaginaChange(paginaAtual - 1)}
-        disabled={paginaAtual === 1}
-        className={styles.button}
-      >
-        ←
-      </button>
-
-      {gerarPaginas().map((numero) => (
+    <>
+      <div className={styles.statusText}>
+        Exibindo itens <strong>{primeiroItem}</strong>–
+        <strong>{ultimoItem}</strong> de <strong>{totalItens}</strong>
+      </div>
+      <div className={styles.container}>
         <button
-          key={numero}
-          onClick={() => onPaginaChange(numero)}
-          className={`${styles.button} ${
-            paginaAtual === numero ? styles.active : ""
-          }`}
+          onClick={() => onPaginaChange(1)}
+          disabled={paginaAtual === 1}
+          className={styles.button}
         >
-          {numero}
+          ⏮️
         </button>
-      ))}
 
-      <button
-        onClick={() => onPaginaChange(paginaAtual + 1)}
-        disabled={paginaAtual === totalPaginas}
-        className={styles.button}
-      >
-        →
-      </button>
+        <button
+          onClick={() => onPaginaChange(paginaAtual - 1)}
+          disabled={paginaAtual === 1}
+          className={styles.button}
+        >
+          ←
+        </button>
 
-      <button
-        onClick={() => onPaginaChange(totalPaginas)}
-        disabled={paginaAtual === totalPaginas}
-        className={styles.button}
-      >
-        ⏭️
-      </button>
-    </div>
+        {gerarPaginas().map((numero) => (
+          <button
+            key={numero}
+            onClick={() => onPaginaChange(numero)}
+            className={`${styles.button} ${
+              paginaAtual === numero ? styles.active : ""
+            }`}
+          >
+            {numero}
+          </button>
+        ))}
+
+        <button
+          onClick={() => onPaginaChange(paginaAtual + 1)}
+          disabled={paginaAtual === totalPaginas}
+          className={styles.button}
+        >
+          →
+        </button>
+
+        <button
+          onClick={() => onPaginaChange(totalPaginas)}
+          disabled={paginaAtual === totalPaginas}
+          className={styles.button}
+        >
+          ⏭️
+        </button>
+      </div>
+    </>
   );
 }
