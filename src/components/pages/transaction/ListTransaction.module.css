@@ -14,6 +14,7 @@
   overflow: hidden;
   background-color: var(--bg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
 }
 
 .thead {
@@ -23,7 +24,7 @@
 }
 
 .thead th {
-  padding: 1rem;
+  padding: 0.25rem 1rem;
   text-align: left;
   font-size: 0.85rem;
   font-weight: 600;
@@ -56,7 +57,7 @@
 }
 
 .td {
-  padding: 0.75rem 1rem;
+  padding: 0.25rem 1rem;
   font-size: 0.9rem;
   color: var(--text);
 }
@@ -67,9 +68,10 @@
 }
 
 .pagination {
-  margin-top: 2rem;
+  margin: 1rem 0;
   display: flex;
-  justify-content: space-between;
+  justify-content:center;
+  gap: 10px;
   align-items: center;
 }
 
@@ -94,6 +96,6 @@
 }
 
 .paginationInfo {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text);
 }

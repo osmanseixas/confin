@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { getTransacoes } from "../../../services/TransactionService";
 import { formatCurrency } from "../../../utils/Format";
 import styles from "./ListTransaction.module.css";
+import Pagination from "../../layout/Pagination";
 
 export default function ListTransaction() {
   const [filtro, setFiltro] = useState({
@@ -135,27 +136,11 @@ export default function ListTransaction() {
             </tbody>
           </table>
 
-          {/* Paginação */}
-          <div className={styles.pagination}>
-            <button
-              className={styles.paginationButton}
-              disabled={paginaAtual === 1}
-              onClick={() => setPaginaAtual((p) => p - 1)}
-            >
-              ← Anterior
-            </button>
-            <span className={styles.paginationInfo}>
-              Página <strong>{paginaAtual}</strong> de{" "}
-              <strong>{totalPaginas}</strong>
-            </span>
-            <button
-              className={styles.paginationButton}
-              disabled={paginaAtual === totalPaginas}
-              onClick={() => setPaginaAtual((p) => p + 1)}
-            >
-              Próxima →
-            </button>
-          </div>
+          <Pagination
+            paginaAtual={paginaAtual}
+            totalPaginas={totalPaginas}
+            onPaginaChange={setPaginaAtual}
+          />
         </div>
       )}
     </div>

@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+  
+  .container::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .container::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb);
+    border-radius: 9999px;
+  }
+  
+  /* Variáveis para temas */
+  :root {
+    --bg-button: #e0f2fe;
+    --bg-button-hover: #bae6fd;
+    --bg-button-active: #3b82f6;
+    --text-button: #0369a1;
+    --text-button-active: #ffffff;
+    --scroll-thumb: #93c5fd;
+  }
+  
+  body[data-theme="dark"] {
+    --bg-button: #1e3a8a;
+    --bg-button-hover: #2563eb;
+    --bg-button-active: #60a5fa;
+    --text-button: #bfdbfe;
+    --text-button-active: #1e293b;
+    --scroll-thumb: #60a5fa;
+  }
+  
+  .button {
+    min-width: 40px;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--bg-button);
+    color: var(--text-button);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: background-color 0.1s ease;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: var(--bg-button-hover);
+  }
+  
+  .button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .active {
+    background-color: var(--bg-button-active);
+    color: var(--text-button-active);
+    font-weight: bold;
+  }
+  
