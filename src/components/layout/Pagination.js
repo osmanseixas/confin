@@ -1,6 +1,8 @@
 import React from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import styles from "./Pagination.module.css";
+import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
+import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
 
 export default function Pagination({
   paginaAtual,
@@ -16,8 +18,12 @@ export default function Pagination({
     propMaxPaginasVisiveis ??
     (windowWidth >= 1024 ? 10 : windowWidth >= 640 ? 7 : 4);
 
-  const primeiroItem = (paginaAtual - 1) * itensPorPagina + 1;
-  const ultimoItem = Math.min(paginaAtual * itensPorPagina, totalItens);
+  let primeiroItem = (paginaAtual - 1) * itensPorPagina + 1;
+  let ultimoItem = Math.min(paginaAtual * itensPorPagina, totalItens);
+
+  if (ultimoItem === 0) {
+    primeiroItem = 0;
+  }
 
   const gerarPaginas = () => {
     const paginas = [];
@@ -48,7 +54,7 @@ export default function Pagination({
           disabled={paginaAtual === 1}
           className={styles.button}
         >
-          ⏮️
+          <TbPlayerTrackPrev />
         </button>
 
         <button
@@ -56,7 +62,7 @@ export default function Pagination({
           disabled={paginaAtual === 1}
           className={styles.button}
         >
-          ←
+          <GrCaretPrevious />
         </button>
 
         {gerarPaginas().map((numero) => (
@@ -76,7 +82,7 @@ export default function Pagination({
           disabled={paginaAtual === totalPaginas}
           className={styles.button}
         >
-          →
+          <GrCaretNext />
         </button>
 
         <button
@@ -84,7 +90,7 @@ export default function Pagination({
           disabled={paginaAtual === totalPaginas}
           className={styles.button}
         >
-          ⏭️
+          <TbPlayerTrackNext />
         </button>
       </div>
     </>

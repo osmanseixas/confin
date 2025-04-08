@@ -3,6 +3,7 @@ import { getTransacoes } from "../../../services/TransactionService";
 import { formatCurrency } from "../../../utils/Format";
 import styles from "./ListTransaction.module.css";
 import Pagination from "../../layout/Pagination";
+import { TbArrowNarrowDown, TbArrowNarrowUp } from "react-icons/tb";
 
 export default function ListTransaction() {
   const [filtro, setFiltro] = useState({
@@ -75,14 +76,14 @@ export default function ListTransaction() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 px-4">
+    <div className={styles.container}>
       {erro ? (
         <p className="text-red-500">{erro}</p>
       ) : (
-        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+        <div className={styles.box}>
           <table className={styles.table}>
             <thead className={styles.thead}>
-              <tr className="text-sm text-gray-700 border-t border-gray-100 hover:bg-blue-50 transition">
+              <tr>
                 {["data", "descricao", "conta", "categoria", "valor"].map(
                   (campo) => (
                     <th
@@ -91,7 +92,12 @@ export default function ListTransaction() {
                       onClick={() => alternarOrdem(campo)}
                     >
                       {campo.toUpperCase()}
-                      {ordem === campo && (ascendente ? " ▲" : " ▼")}
+                      {ordem === campo &&
+                        (ascendente ? (
+                          <TbArrowNarrowUp />
+                        ) : (
+                          <TbArrowNarrowDown />
+                        ))}
                     </th>
                   )
                 )}
@@ -114,7 +120,7 @@ export default function ListTransaction() {
                 )}
               </tr>
             </thead>
-            <tbody>
+            <tbody className={styles.fadeEnter}>
               {dadosPaginados.map((item, index) => (
                 <tr key={index} className={styles.row}>
                   <td className={styles.td}>{item.data}</td>
@@ -139,22 +145,6 @@ export default function ListTransaction() {
                   <td className={`${styles.td} ${styles.valor}`}>&nbsp;</td>
                 </tr>
               ))}
-
-              {dadosPaginados.length === 0 && (
-                <tr>
-                  <td colSpan={5} className="p-4 text-center text-gray-500">
-                    Nenhum resultado encontrado.
-                  </td>
-                </tr>
-              )}
-
-              {dadosPaginados.length === 0 && (
-                <tr>
-                  <td colSpan={5} className="p-4 text-center text-gray-500">
-                    Nenhum resultado encontrado.
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
 
