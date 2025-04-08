@@ -1,0 +1,65 @@
+.toggleContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .switchWrapper {
+    position: relative;
+    width: 60px;
+    height: 28px;
+  }
+  
+  .hiddenCheckbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .track {
+    background-color: #d1d5db;
+    border-radius: 9999px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .trackChecked {
+    background-color: #3b82f6;
+  }
+  
+  .iconLeft,
+  .iconRight {
+    pointer-events: none;
+    user-select: none;
+    color: #374151; /* gray-700 */
+  }
+  
+  [data-theme="dark"] .iconLeft,
+  [data-theme="dark"] .iconRight {
+    color: #f9fafb; /* gray-100 */
+  }
+  
+  .thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .thumbChecked {
+    transform: translateX(32px);
+  }
+  

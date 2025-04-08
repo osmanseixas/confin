@@ -1,7 +1,6 @@
 import BarChartComponent from "../layout/BarChartComponent";
 import Card from "../layout/Card";
 import PieChartComponent from "../layout/PieChartComponent";
-import TransactionsTable from "../layout/TransactionsTable";
 
 export default function Dashboard() {
   return (
@@ -11,7 +10,6 @@ export default function Dashboard() {
     <Card titulo="Despesas" valor={4500.87} corFundo="red" corLetra="white" />
     <PieChartComponent />
     <BarChartComponent />
-    <TransactionsTable />
     </div>
   );
 }

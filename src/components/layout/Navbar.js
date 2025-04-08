@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Container from "./Container";
 import { TbPigMoney } from "react-icons/tb";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -56,6 +57,7 @@ export default function Navbar() {
           </li>
         </ul>
       </Container>
+      <ThemeToggle />
     </nav>
   );
 }

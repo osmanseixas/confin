@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { getTransacoes } from "../../../services/TransactionService";
 import { formatCurrency } from "../../../utils/Format";
 import styles from "./ListTransaction.module.css";
-import ThemeToggle from "../../layout/ThemeToggle";
 
 export default function ListTransaction() {
   const [filtro, setFiltro] = useState({
@@ -80,7 +79,6 @@ export default function ListTransaction() {
         <p className="text-red-500">{erro}</p>
       ) : (
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-          <ThemeToggle />
           <table className={styles.table}>
             <thead className={styles.thead}>
               <tr className="text-sm text-gray-700 border-t border-gray-100 hover:bg-blue-50 transition">
