@@ -12,6 +12,14 @@
     --input-border: #cbd5e1;
     --pagination-bg: #3b82f6;
     --pagination-hover: #2563eb;
+
+
+    --bg-color: #f9f9f9;
+    --hover-bg: #eee;
+    --border-color: #ccc;
+    --icon-color: #444;
+    --icon-hover: #007bff;
+    --selected-icon: #007bff;
   }
   
   [data-theme='dark'] {
@@ -28,5 +36,13 @@
     --input-border: #4b5563;
     --pagination-bg: #463ee1;
     --pagination-hover: #372ac3;
+
+
+    --bg-color: #2a2a2a;
+    --hover-bg: #3a3a3a;
+    --border-color: #444;
+    --icon-color: #bbb;
+    --icon-hover: #66b2ff;
+    --selected-icon: #66b2ff;
   }
   

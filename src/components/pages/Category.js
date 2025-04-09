@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getCategorias } from "../../services/CategoryService";
-import Select from "react-select";
 import { MdLocalHospital, MdFastfood } from "react-icons/md";
 import {
   FaCarSide,
@@ -20,7 +19,9 @@ import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { IoMdAirplane } from "react-icons/io";
 import { IoConstruct } from "react-icons/io5";
 
-import "./Category.module.css";
+import styles from "./Category.module.css";
+import IconGridSelector from "../layout/IconGridSelector";
+import ColorPicker from "../layout/ColorPicker";
 
 export default function Category() {
   const [items, setItems] = useState([]);
@@ -68,12 +69,6 @@ export default function Category() {
     carregarDados();
   }, []);
 
-  // Opções formatadas para o React Select
-  const iconOptions = Object.keys(icons).map((key) => ({
-    value: key,
-    label: <div className="icon-option">{icons[key]}</div>,
-  }));
-
   // Adicionar novo item
   const handleAddItem = () => {
     if (newItem.trim() === "") return;
@@ -120,42 +115,38 @@ export default function Category() {
   };
 
   return (
-    <div className="mainContainer">
+    <div className={styles.mainContainer}>
       <h1>Categorias das Receitas e Despesas</h1>
 
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        <div className="max-w-6xl mx-auto mt-10 px-4">
+        <div className={`max-w-6xl mx-auto ${styles.box}`}>
           {erro ? (
             <p className="text-red-500">{erro}</p>
           ) : (
             <>
-              <div className="input-container">
+              <div className={styles.inputContainer}>
                 <input
                   type="text"
                   placeholder="Digite uma nova categoria..."
                   value={newItem}
                   onChange={(e) => setNewItem(e.target.value)}
                 />
-                <Select
-                  options={iconOptions}
-                  value={iconOptions.find(
-                    (option) => option.value === selectedIcone
-                  )}
-                  onChange={(option) => setSelectedIcone(option.value)}
-                  className="icon-select"
+                <IconGridSelector
+                  icons={icons}
+                  selected={selectedIcone}
+                  onSelect={(iconKey) => setSelectedIcone(iconKey)}
                 />
-                <input
-                  type="color"
-                  value={newCor}
-                  onChange={(e) => setNewCor(e.target.value)}
+                <ColorPicker
+                  selectedColor={newCor}
+                  onChange={setNewCor}
                 />
                 <button onClick={handleAddItem}>Adicionar</button>
               </div>
-              <ul className="item-list">
+              <ul className={styles.itemList}>
                 {items.map((item) => (
-                  <li key={item.id} className="item">
+                  <li key={item.id} className={styles.item}>
                     {editingItem && editingItem.id === item.id ? (
                       <>
                         <input
@@ -163,18 +154,14 @@ export default function Category() {
                           value={editedDescricao}
                           onChange={(e) => setEditedDescricao(e.target.value)}
                         />
-                        <Select
-                          options={iconOptions}
-                          value={iconOptions.find(
-                            (option) => option.value === editedIcone
-                          )}
-                          onChange={(option) => setEditedIcone(option.value)}
-                          className="icon-select"
+                        <IconGridSelector
+                          icons={icons}
+                          selected={editedIcone}
+                          onSelect={(iconKey) => setEditedIcone(iconKey)}
                         />
-                        <input
-                          type="color"
-                          value={editedCor}
-                          onChange={(e) => setEditedCor(e.target.value)}
+                        <ColorPicker
+                          selectedColor={editedCor}
+                          onChange={setEditedCor}
                         />
                         <button onClick={handleSaveEdit} className="save">
                           <FaSave />
@@ -191,7 +178,7 @@ export default function Category() {
                         >
                           {icons[item.icone]} {item.descricao}
                         </span>
-                        <div className="buttons">
+                        <div className={styles.buttons}>
                           <button
                             onClick={() => handleEditItem(item)}
                             className="edit"
