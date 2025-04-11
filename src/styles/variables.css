@@ -1,5 +1,3 @@
-/* src/styles/variables.css */
-
 :root {
     /* Cores */
     --color-bg-table-header: #f3f4f6;
@@ -16,7 +14,6 @@
     --font-weight-semibold: 600;
   }
   
-  /* Tema escuro */
   @media (prefers-color-scheme: dark) {
     :root {
       --color-bg-table-header: #1f2937;     /* zinc-800 */
