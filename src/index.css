@@ -6,7 +6,8 @@
 }
 
 html, body, #root {
-  background-color: #CFD5D5;
+  color: var(--contrast-text);
+  background-color: var(--contrast-bg);
   height: 100%;
 }
 

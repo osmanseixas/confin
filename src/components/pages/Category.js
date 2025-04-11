@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { getCategorias } from "../../services/CategoryService";
 import { MdLocalHospital, MdFastfood } from "react-icons/md";
+import { TbArrowNarrowDown, TbArrowNarrowUp } from "react-icons/tb";
 import {
   FaCarSide,
   FaShoppingCart,
@@ -8,7 +9,6 @@ import {
   FaPeopleCarry,
   FaTrash,
   FaEdit,
-  FaSave,
 } from "react-icons/fa";
 import {
   FaHouseChimney,
@@ -24,6 +24,12 @@ import IconGridSelector from "../layout/IconGridSelector";
 import ColorPicker from "../layout/ColorPicker";
 
 export default function Category() {
+  const [filtro, setFiltro] = useState({
+    descricao: "",
+  });
+  const [ordem, setOrdem] = useState("descricao");
+  const [ascendente, setAscendente] = useState(true);
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState("");
@@ -31,10 +37,6 @@ export default function Category() {
   const [newItem, setNewItem] = useState("");
   const [selectedIcone, setSelectedIcone] = useState("");
   const [newCor, setNewCor] = useState("");
-  const [editingItem, setEditingItem] = useState(null);
-  const [editedDescricao, setEditedDescricao] = useState("");
-  const [editedIcone, setEditedIcone] = useState("");
-  const [editedCor, setEditedCor] = useState("");
 
   // Ícones disponíveis
   const icons = {
@@ -89,86 +91,108 @@ export default function Category() {
     setItems(items.filter((item) => item.id !== id));
   };
 
-  // Iniciar edição
-  const handleEditItem = (item) => {
-    setEditingItem(item);
-    setEditedDescricao(item.descricao);
-    setEditedIcone(item.icone);
-    setEditedCor(item.cor);
-  };
+  const dadosFiltrados = useMemo(() => {
+    let resultado = [...items];
 
-  // Salvar edição
-  const handleSaveEdit = () => {
-    setItems(
-      items.map((item) =>
-        item.id === editingItem.id
-          ? {
-              ...item,
-              descricao: editedDescricao,
-              icone: editedIcone,
-              cor: editedCor,
-            }
-          : item
+    // Filtro
+    resultado = resultado.filter((item) =>
+      Object.entries(filtro).every(([chave, valor]) =>
+        valor === ""
+          ? true
+          : String(item[chave]).toLowerCase().includes(valor.toLowerCase())
       )
     );
-    setEditingItem(null);
+
+    // Ordenação
+    if (ordem) {
+      resultado.sort((a, b) => {
+        const valorA = a[ordem];
+        const valorB = b[ordem];
+        if (valorA < valorB) return ascendente ? -1 : 1;
+        if (valorA > valorB) return ascendente ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return resultado;
+  }, [items, filtro, ordem, ascendente]);
+
+  const alternarOrdem = (campo) => {
+    if (ordem === campo) {
+      setAscendente(!ascendente);
+    } else {
+      setOrdem(campo);
+      setAscendente(true);
+    }
   };
 
   return (
     <div className={styles.mainContainer}>
       <h1>Categorias das Receitas e Despesas</h1>
-
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.filterInput}
+          type="text"
+          placeholder="Digite uma nova categoria..."
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+        />
+        <IconGridSelector
+          icons={icons}
+          selected={selectedIcone}
+          onSelect={(iconKey) => setSelectedIcone(iconKey)}
+        />
+        <ColorPicker selectedColor={newCor} onChange={setNewCor} />
+        <button onClick={handleAddItem}>Adicionar</button>
+      </div>
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        <div className={`max-w-6xl mx-auto ${styles.box}`}>
+        <div className={styles.container}>
           {erro ? (
             <p className="text-red-500">{erro}</p>
           ) : (
-            <>
-              <div className={styles.inputContainer}>
-                <input
-                  type="text"
-                  placeholder="Digite uma nova categoria..."
-                  value={newItem}
-                  onChange={(e) => setNewItem(e.target.value)}
-                />
-                <IconGridSelector
-                  icons={icons}
-                  selected={selectedIcone}
-                  onSelect={(iconKey) => setSelectedIcone(iconKey)}
-                />
-                <ColorPicker
-                  selectedColor={newCor}
-                  onChange={setNewCor}
-                />
-                <button onClick={handleAddItem}>Adicionar</button>
-              </div>
-              <ul className={styles.itemList}>
-                {items.map((item) => (
-                  <li key={item.id} className={styles.item}>
-                    {editingItem && editingItem.id === item.id ? (
-                      <>
+            <div className={styles.box}>
+              <table className={styles.table}>
+                <thead className={styles.thead}>
+                  <tr>
+                    {["descricao"].map((campo) => (
+                      <th
+                        colSpan={2}
+                        key={campo}
+                        className={styles.th}
+                        onClick={() => alternarOrdem(campo)}
+                      >
+                        {campo.toUpperCase()}
+                        {ordem === campo &&
+                          (ascendente ? (
+                            <TbArrowNarrowUp />
+                          ) : (
+                            <TbArrowNarrowDown />
+                          ))}
+                      </th>
+                    ))}
+                  </tr>
+                  <tr className={styles.filterRow}>
+                    {["descricao"].map((campo) => (
+                      <td key={campo} colSpan={2}>
                         <input
                           type="text"
-                          value={editedDescricao}
-                          onChange={(e) => setEditedDescricao(e.target.value)}
+                          placeholder={`Filtrar ${campo}`}
+                          className={styles.filterInput}
+                          value={filtro[campo]}
+                          onChange={(e) =>
+                            setFiltro({ ...filtro, [campo]: e.target.value })
+                          }
                         />
-                        <IconGridSelector
-                          icons={icons}
-                          selected={editedIcone}
-                          onSelect={(iconKey) => setEditedIcone(iconKey)}
-                        />
-                        <ColorPicker
-                          selectedColor={editedCor}
-                          onChange={setEditedCor}
-                        />
-                        <button onClick={handleSaveEdit} className="save">
-                          <FaSave />
-                        </button>
-                      </>
-                    ) : (
-                      <>
+                      </td>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className={styles.fadeEnter}>
+                  {dadosFiltrados.map((item, index) => (
+                    <tr key={index} className={styles.row}>
+                      <td className={styles.td}>
                         <span
                           style={{
                             backgroundColor: item.cor,
@@ -178,11 +202,10 @@ export default function Category() {
                         >
                           {icons[item.icone]} {item.descricao}
                         </span>
+                      </td>
+                      <td className={styles.td}>
                         <div className={styles.buttons}>
-                          <button
-                            onClick={() => handleEditItem(item)}
-                            className="edit"
-                          >
+                          <button className="edit">
                             <FaEdit />
                           </button>
                           <button
@@ -192,12 +215,12 @@ export default function Category() {
                             <FaTrash />
                           </button>
                         </div>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       )}
