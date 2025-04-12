@@ -25,7 +25,7 @@ export default function IconGridSelector({ icons, selected, onSelect }) {
         className={styles.selectedIcon}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {icons[selected] || <span className={styles.placeholder}>?</span>}
+        {icons[selected] || <span className={styles.placeholder}>...</span>}
       </div>
 
       {isOpen && (

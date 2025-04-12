@@ -7,7 +7,9 @@
     --text: #1f2937;
     --text-hover: #5db5c2;
     --header-bg: #c9e1ff;
+    --row-bg: #c9e1ffa8;
     --row-hover: #ebf4ff;
+    --row-separator: #ababab;
     --filter-bg: #c9e1ff;
     --input-border: #cbd5e1;
     --pagination-bg: #3b82f6;
@@ -23,7 +25,9 @@
     --text: #f3f4f6;
     --text-hover: #3b82f6;
     --header-bg: #1f2937;
+    --row-bg: #696e74;
     --row-hover: #4b5563;
+    --row-separator: #ababab;
     --filter-bg: #1f2937;
     --input-border: #4b5563;
     --pagination-bg: #463ee1;

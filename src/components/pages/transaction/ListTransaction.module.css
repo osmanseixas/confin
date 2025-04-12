@@ -50,6 +50,8 @@
 
 .row {
   transition: background-color 0.2s;
+  background-color: var(--row-bg);
+  border-bottom: 1px solid var(--row-separator);
 }
 
 .row:hover {

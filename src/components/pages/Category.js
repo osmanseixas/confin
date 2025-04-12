@@ -36,7 +36,7 @@ export default function Category() {
 
   const [newItem, setNewItem] = useState("");
   const [selectedIcone, setSelectedIcone] = useState("");
-  const [newCor, setNewCor] = useState("");
+  const [newCor, setNewCor] = useState("#000000");
 
   // Ícones disponíveis
   const icons = {
@@ -74,6 +74,8 @@ export default function Category() {
   // Adicionar novo item
   const handleAddItem = () => {
     if (newItem.trim() === "") return;
+    if (selectedIcone.trim() === "") return;
+    if (newCor.trim() === "") return;
     const newItemObj = {
       id: Date.now(),
       descricao: newItem,
@@ -83,7 +85,7 @@ export default function Category() {
     setItems([...items, newItemObj]);
     setNewItem("");
     setSelectedIcone("");
-    setNewCor("");
+    setNewCor(newCor);
   };
 
   // Excluir item
@@ -142,7 +144,7 @@ export default function Category() {
           selected={selectedIcone}
           onSelect={(iconKey) => setSelectedIcone(iconKey)}
         />
-        <ColorPicker selectedColor={newCor} onChange={setNewCor} />
+        <ColorPicker selectedColor={newCor} onChange={(e) => setNewCor(e.target.value)} />
         <button onClick={handleAddItem}>Adicionar</button>
       </div>
       {loading ? (
