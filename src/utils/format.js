@@ -77,3 +77,67 @@ export const capitalize = (str) => {
 export const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export const getComparableValue = (value, type = "text") => {
+  if (value == null) return "";
+
+  switch (type) {
+    case "date": {
+      // Converte dd/mm/yyyy para yyyy-mm-dd
+      const [d, m, y] = value.split("/");
+      return new Date(`${y}-${m}-${d}`);
+    }
+    case "currency": {
+      // Remove R$, pontos e vírgulas (BRL)
+      const cleaned = value.replace(/[^\d,-]+/g, "").replace(".", "").replace(",", ".");
+      return parseFloat(cleaned) || 0;
+    }
+    case "text":
+    default:
+      return value
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+  }
+};
+
+export const compareFilter = (valorItem, filtroValor, tipo = "text") => {
+  if (!filtroValor) return true; // sem filtro → passa
+
+  if (valorItem == null) return false;
+
+  switch (tipo) {
+    case "select":
+      return String(valorItem) === filtroValor;
+
+      case "date": {
+        console.log("valorItem:"+valorItem);
+        if (!valorItem || typeof valorItem !== "string" || !valorItem.includes("/")) return false;
+        const [dia, mes, ano] = valorItem.split("/");
+        const { dia: fdia, mes: fmes, ano: fano } = filtroValor;
+        console.log("filtroValor:"+filtroValor);
+  
+        if (fdia && fdia !== dia) return false;
+        if (fmes && fmes !== mes) return false;
+        if (fano && fano !== ano) return false;
+        return true;
+      }     
+
+    case "currency":
+      const valorNumerico = parseFloat(
+        valorItem.replace(/[^\d,-]+/g, "").replace(".", "").replace(",", ".")
+      );
+      const filtroNumerico = parseFloat(filtroValor.replace(",", "."));
+      return valorNumerico === filtroNumerico;
+
+    case "text":
+    default:
+      const normalizar = (str) =>
+        str
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      return normalizar(String(valorItem)).includes(normalizar(filtroValor));
+  }
+};
