@@ -76,7 +76,7 @@
   
   .statusText strong {
     font-weight: 600;
-    color: var(--text-status-strong);
+    color: var(--contrast-text);
   }
   
   /* Cores adaptadas ao tema */

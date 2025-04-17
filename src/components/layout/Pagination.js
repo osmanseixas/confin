@@ -45,8 +45,7 @@ export default function Pagination({
   return (
     <>
       <div className={styles.statusText}>
-        Exibindo itens <strong>{primeiroItem}</strong>–
-        <strong>{ultimoItem}</strong> de <strong>{totalItens}</strong>
+        Exibindo itens <strong>{primeiroItem}</strong>–<strong>{ultimoItem}</strong> de <strong>{totalItens}</strong>.
       </div>
       <div className={styles.container}>
         <button
